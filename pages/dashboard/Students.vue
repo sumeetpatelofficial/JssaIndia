@@ -1,0 +1,619 @@
+<template>
+  <v-sheet color="white" rounded elevation="2">
+    <div class="page-body">
+      <v-data-table
+        :headers="headers"
+        :items="studentList"
+        item-key="id"
+        :items-per-page="15"
+        :loading="loading"
+        loading-text="Loading... Please wait"
+        :search="searchStudent"
+      >
+        <template #top>
+          <v-toolbar flat>
+            <v-toolbar-title>All Students</v-toolbar-title>
+            <v-divider class="mx-4" inset vertical></v-divider>
+            <v-spacer></v-spacer>
+            <v-text-field
+              v-model="searchStudent"
+              append-icon="mdi-magnify"
+              label="Search by Id"
+              single-line
+              hide-details
+              outlined
+              dense
+              class="mr-10"
+            ></v-text-field>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="primary"
+              @click.stop="OpenStudentDialog"
+              class="text-capitalize"
+              >Add Student</v-btn
+            >
+          </v-toolbar>
+        </template>
+        <template #item="{ item }">
+          <tr>
+            <td>{{ item.StudentId }}</td>
+            <td class="text-lowercase">
+              {{ `${item.Firstname}  ${item.Lastname}` }}
+            </td>
+            <td>{{ item.Coursename }}</td>
+            <td>{{ item.Addmissiondate }}</td>
+            <td>{{ item.Enddate ? item.Enddate : "-" }}</td>
+            <td>{{ item.Certificatedate ? item.Certificatedate : "-" }}</td>
+            <td>
+              <v-icon
+                small
+                color="success"
+                class="mr-2"
+                @click.stop.prevent="editItem(item.id)"
+                >mdi-pencil</v-icon
+              >
+              <v-icon
+                small
+                color="error"
+                @click.stop.prevent="confirmDelete(item.id)"
+                >mdi-delete</v-icon
+              >
+            </td>
+          </tr>
+        </template>
+      </v-data-table>
+    </div>
+    <v-snackbar
+      v-model="snackbarConfig.snackbar"
+      timeout="3000"
+      absolute
+      top
+      right
+      :color="snackbarConfig.color"
+      elevation="24"
+    >
+      <h5 class="text-h6 mb-0">{{ snackbarConfig.snackbarText }}</h5>
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="white"
+          text
+          icon
+          class="text-capitalize"
+          v-bind="attrs"
+          @click="snackbarConfig.snackbar = false"
+        >
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+      </template>
+    </v-snackbar>
+
+    <v-dialog v-model="studentDialog" max-width="720px">
+      <v-card :loading="loading">
+        <v-card-title>
+          <span class="text-h5">{{
+            editForm ? "Edit Student Detail" : "Add New Student"
+          }}</span>
+        </v-card-title>
+        <v-form
+          class="login-form"
+          ref="addStudentForm"
+          v-model="formValid"
+          lazy-validate
+        >
+          <v-row>
+            <v-col cols="12" md="12">
+              <v-text-field
+                v-model="student.StudentId"
+                label="Student Id"
+                placeholder=""
+                outlined
+                required
+                hide-details="auto"
+                append-icon="mdi-refresh"
+                readonly
+                @click:append="updateStudentId"
+                :loading="idLoading"
+              >
+              <template v-slot:progress>
+                  <v-progress-circular
+                    color="primary"
+                    :size="20"
+                    :width="2"
+                    indeterminate
+                  ></v-progress-circular>
+                </template>
+            </v-text-field>
+            </v-col>
+            <v-col cols="12" md="6">
+              <v-text-field
+                v-model="student.Firstname"
+                label="Student First Name"
+                placeholder=""
+                outlined
+                required
+                hide-details="auto"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" md="6">
+              <v-text-field
+                v-model="student.Lastname"
+                label="Student Last Name"
+                placeholder=""
+                outlined
+                required
+                hide-details="auto"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" md="12">
+              <v-radio-group v-model="student.Gender" row>
+                <template v-slot:label>
+                  <div class="text-h6">Gender</div>
+                </template>
+                <v-radio label="Male" value="Male"></v-radio>
+                <v-radio label="Female" value="Female"></v-radio>
+                <v-radio label="Other" value="Other"></v-radio>
+              </v-radio-group>
+            </v-col>
+            <v-col cols="12" md="6">
+              <v-text-field
+                v-model="student.Address"
+                label="Student Address"
+                placeholder=""
+                outlined
+                required
+                hide-details="auto"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" md="6">
+              <v-text-field
+                v-model="student.City"
+                label="Student City"
+                placeholder=""
+                outlined
+                required
+                hide-details="auto"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" md="6">
+              <v-text-field
+                v-model="student.State"
+                label="Student State"
+                placeholder=""
+                outlined
+                required
+                hide-details="auto"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" md="6">
+              <v-text-field
+                v-model="student.Email"
+                label="Student Email"
+                placeholder=""
+                outlined
+                required
+                hide-details="auto"
+                :rules="emailRules"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" md="6">
+              <v-text-field
+                v-model="student.Contactno"
+                label="Contact"
+                placeholder="+91-123 456 7890"
+                outlined
+                required
+                :rules="TelephoneNumberRule"
+                hide-details="auto"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" md="6">
+              <v-combobox
+                v-model="student.Qualification"
+                label="Student Qualification"
+                :items="qualificationList"
+                outlined
+                required
+                hide-details="auto"
+              ></v-combobox>
+            </v-col>
+            <v-col cols="12" md="6">
+              <v-combobox
+                label="Select Center"
+                :items="centerList"
+                outlined
+                required
+                hide-details="auto"
+                :loading="loading"
+                clearable
+                :value="student.Centername"
+              >
+                <template v-slot:item="{ index, item }">
+                  <v-list-item-content @click.stop="centerSelection(item)">
+                    {{ item.centerName }}
+                  </v-list-item-content>
+                </template>
+              </v-combobox>
+            </v-col>
+            <v-col cols="12" md="6">
+              <v-combobox
+                label="Select Course"
+                :items="courseList"
+                outlined
+                required
+                hide-details="auto"
+                :loading="loading"
+                clearable
+                :value="student.Coursename"
+              >
+                <template v-slot:item="{ index, item }">
+                  <v-list-item-content @click.stop="courseSelection(item)">
+                    {{ item.fullName ? item.fullName : item.courseName }}
+                    {{ item.fullName == null ? "" : `(${item.courseName})` }}
+                  </v-list-item-content>
+                </template>
+              </v-combobox>
+            </v-col>
+            <v-col cols="12" md="6" style="position: relative;">
+              <v-text-field
+                v-model="student.Addmissiondate"
+                label="Admission Date"
+                placeholder=""
+                outlined
+                required
+                hide-details="auto"
+                @click="openAdmit = true"                
+              ></v-text-field>
+              <date-picker class="date-picker-style" :open.sync="openAdmit" v-model="student.Addmissiondate" value-type="format" format="DD/MM/YYYY"></date-picker>
+            </v-col>
+            <v-col cols="12" md="6" style="position: relative;">
+              <v-text-field
+                v-model="student.Enddate"
+                label="End Date"
+                placeholder=""
+                outlined
+                required
+                hide-details="auto"
+                @click="openEnd = true"                
+              ></v-text-field>
+              <date-picker class="date-picker-style" :open.sync="openEnd" v-model="student.Enddate" value-type="format" format="DD/MM/YYYY"></date-picker>
+            </v-col>
+            <v-col cols="12" md="6">
+              <v-combobox
+                v-model="student.Grade"
+                label="Select Grade"
+                :items="gradeList"
+                outlined
+                required
+                hide-details="auto"
+                clearable
+              ></v-combobox>
+            </v-col>
+            <v-col cols="12" md="6" style="position: relative;">
+              <v-text-field
+                v-model="student.Certificatedate"
+                label="Cerificate Date"
+                placeholder=""
+                outlined
+                required
+                hide-details="auto"
+                @click="openCerti = true"                
+              ></v-text-field>
+              <date-picker class="date-picker-style" :open.sync="openCerti" v-model="student.Certificatedate" value-type="format" format="DD/MM/YYYY"></date-picker>
+            </v-col>
+          </v-row>
+          <v-row class="mt-5">
+            <v-col cols="12" md="12" class="text-center">
+              <v-btn
+                color="primary"
+                @click.stop.prevent="addStudent"
+                class="text-capitalize"
+                >{{ editForm ? "Update" : "Add Student" }}</v-btn
+              >
+              <v-btn text class="text-capitalize" @click="onCloseForm">Cancel</v-btn>
+            </v-col>
+          </v-row>
+        </v-form>
+        <template slot="progress">
+          <v-progress-linear
+            color="primary"
+            height="5"
+            indeterminate
+          ></v-progress-linear>
+        </template>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="confirmDialog" max-width="320">
+      <v-card>
+        <v-card-title class="text-h5">
+          <v-icon color="error" class="vertical-middle">mdi-delete</v-icon>
+          <span class="error--text">Confirm Delete</span>
+        </v-card-title>
+
+        <v-card-text class="text-h6">
+          Are you sure you want to remove this data.
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn color="green darken-1" text @click="confirmDialog = false">
+            No
+          </v-btn>
+
+          <v-btn color="error darken-1" text @click="deleteItem">
+            Yes, I Confirm
+          </v-btn>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </v-sheet>
+</template>
+
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import DatePicker from 'vue2-datepicker';
+import 'vue2-datepicker/index.css';
+
+import {
+  emailRules,
+  onlyCharacterRule,
+  TelephoneNumberRule,
+} from "~/validationRules";
+@Component({
+  components:{
+    DatePicker
+  }
+})
+export default class Students extends Vue {
+  studentList: any = [];
+  formValid: any = true;
+  error: any = "";
+  loading: any = false;
+  studentDialog: any = false;
+  editForm: any = false;
+  editId: any = "";
+  confirmDialog: any = false;
+  searchStudent: any = "";
+  snackbarConfig: any = {
+    snackbar: false,
+    snackbarText: "abc",
+    color: "success",
+  };
+
+  student: any = {
+    SrNo: "",
+    StudentId: "",
+    Firstname: "",
+    Lastname: "",
+    Gender: "Male",
+    Address: "",
+    City: "",
+    State: "",
+    Email: "",
+    Contactno: "",
+    Qualification: "",
+    Centername: "",
+    Coursename: "",
+    Addmissiondate: "",
+    Enddate: '',
+    Grade: "",
+    Certificatedate: "",
+    Timestamp: "",
+    IsActive: true,
+  };
+
+  headers: any = [
+    { text: "Stud.Id", value: "StudentId" },
+    { text: "Name", value: "Firstname" },
+    { text: "Course", value: "Coursename" },
+    { text: "Started", value: "Addmissiondate" },
+    { text: "Ended", value: "Enddate" },
+    { text: "Certified", value: "Certificatedate" },
+    { text: "Actions", value: "actions", sortable: false },
+  ];
+  centerList: any = [];
+  courseList: any = [];
+  qualificationList: any = [
+    "Below 10th Standard",
+    "10th Pass",
+    "12th Pass",
+    "Graduate",
+  ];
+  gradeList: any = ["A", "A+", "B", "B+", "C", "C+"];
+  admitDatepicker: any = false;
+  endDatepicker: any = false;
+  certiDatepicker: any = false;
+  openAdmit:any=false;
+  openEnd:any=false;
+  openCerti:any=false;
+  emailRules: any = emailRules;
+  TelephoneNumberRule: any = TelephoneNumberRule;
+  onlyCharacterRule: any = onlyCharacterRule;
+
+  courseSelection(item: any) {
+    this.student.Coursename =
+      (item.fullName ? item.fullName : item.courseName) +
+      " " +
+      (item.fullName == null ? "" : `(${item.courseName})`);
+  }
+
+  centerSelection(item: any) {
+    this.student.Centername = item.centerName;
+  }
+
+  getCourseList() {
+    this.loading = true;
+    setTimeout(() => {
+      try {
+        this.$fire.firestore
+          .collection("Courses")
+          .onSnapshot(async (querySnapshot) => {
+            this.courseList = [];
+            await querySnapshot.forEach((doc) => {
+              this.courseList.push({ id: doc.id, ...doc.data() });
+            });
+          });
+        this.loading = false;
+      } catch (error: any) {
+        this.error = error.code;
+      }
+    }, 2000);
+  }
+
+  getCenterList() {
+    this.loading = true;
+    setTimeout(() => {
+      try {
+        this.$fire.firestore
+          .collection("Centers")
+          .onSnapshot(async (querySnapshot) => {
+            this.centerList = [];
+            await querySnapshot.forEach((doc) => {
+              this.centerList.push({ id: doc.id, ...doc.data() });
+            });
+          });
+        this.loading = false;
+      } catch (error: any) {
+        this.error = error.code;
+      }
+    }, 2000);
+  }
+
+  getAllStudents() {
+    this.loading = true;
+    try {
+      this.$fire.firestore
+        .collection("Students")
+        .onSnapshot(async (querySnapshot) => {
+          this.studentList = [];
+          await querySnapshot.forEach((doc) => {
+            this.studentList.push({ id: doc.id, ...doc.data() });
+            this.loading = false;
+          });
+        });
+    } catch (error: any) {
+      this.error = error.code;
+    }
+  }
+
+  async mounted() {
+    this.editId = "";
+    await this.getAllStudents();
+    await this.getCenterList();
+    await this.getCourseList();
+  }
+
+  async addStudent() {
+    const valid = (this.$refs as any).addStudentForm.validate();
+    if (valid) {
+      this.loading = true;
+      await setTimeout(() => {
+        try {
+          if (this.editId != "") {            
+            this.$fire.firestore
+              .collection("Students")
+              .doc(this.editId)
+              .update(this.student);
+            this.snackbarConfig.snackbarText = "student updated.";
+            this.snackbarConfig.snackbar = true;
+            this.snackbarConfig.color = "success";
+          } else {
+            this.$fire.firestore.collection("Students").doc().set(this.student);
+            this.snackbarConfig.snackbarText = "student added.";
+            this.snackbarConfig.snackbar = true;
+            this.snackbarConfig.color = "success";
+          }
+        } catch (error: any) {
+          console.log(error);
+        }
+        this.loading = false;
+        this.studentDialog = false;
+        (this.$refs as any).addStudentForm.reset();
+        this.editForm = false;
+      }, 2000);
+    }
+  }
+
+  editItem(id: any) {
+    this.editId = id;
+    this.editForm = true;
+    this.studentDialog = true;
+    this.$fire.firestore
+      .collection("Students")
+      .doc(id)
+      .get()
+      .then((doc) => {
+        this.student = doc.data();
+      });
+  }
+  confirmDelete(id: any) {
+    this.editId = id;
+    this.confirmDialog = true;
+  }
+  async deleteItem() {
+    if (this.editId) {
+      await this.$fire.firestore
+        .collection("Students")
+        .doc(this.editId)
+        .delete()
+        .catch((error) => {
+          console.log(error);
+        });
+
+      this.snackbarConfig.snackbarText = "Student removed.";
+      this.snackbarConfig.snackbar = true;
+      this.snackbarConfig.color = "error";
+      this.confirmDialog = false;
+      this.editId = "";
+    }
+  }
+
+  onCloseForm() {
+    const form = (this.$refs as any).addStudentForm;
+    this.studentDialog = false;
+    this.editForm = false;
+    form.reset();
+  }
+
+  OpenStudentDialog(){
+    this.studentDialog = true;
+    this.student.StudentId = this.randomString(9);
+  }
+  idLoading:any=false;
+  updateStudentId(){
+    this.idLoading = true;
+    setTimeout(() => {
+      this.student.StudentId = this.randomString(9);
+      this.idLoading = false
+    }, 2000);    
+  }
+
+  randomString(len:any) {
+    let str = "";                                // String result
+      for (let i = 0; i < len; i++) {              // Loop `len` times
+        let rand = Math.floor(Math.random() * 62); // random: 0..61
+        const charCode = rand += rand > 9 ? (rand < 36 ? 55 : 61) : 48; // Get correct charCode
+        str += String.fromCharCode(charCode);      // add Character to str
+      }
+      return str;
+  }
+}
+</script>
+
+<style scoped>
+.date-picker-style{
+  position: absolute;
+  top: 22px;
+  left: 12px;
+  opacity: 0;
+}
+.v-progress-circular {
+  margin: 1rem;
+  position: absolute;
+    right: 30px;
+    top: 2px;
+}
+</style>
