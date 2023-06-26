@@ -14,14 +14,11 @@
             delimiter-icon="mdi-circle"
             height="250"
           >
-            <v-carousel-item v-for="i in 8" :key="i">
+            <v-carousel-item v-for="testimonail, i in testimonialList" :key="i">
               <p class="white--text">
-                The courses here exceeded my expectations in many regards,
-                especially in the depth of information supplied. In a very
-                non-threatening environment, I learned key principles of design
-                that I can implement immediately.
+                {{ testimonail.testimonialText }}
               </p>
-              <em class="text-medium white--text">Martin Brian</em>
+              <em class="text-medium white--text">{{ testimonail.givenBy }}</em>
             </v-carousel-item>
           </v-carousel>
         </v-col>
@@ -34,7 +31,28 @@
 import { Component, Vue } from "vue-property-decorator";
 
 @Component
-export default class HomeTestimonial extends Vue {}
+export default class HomeTestimonial extends Vue {
+  error: any = "";
+  testimonialList: any = [];
+  loading: any = false;
+  mounted() {
+    this.loading = true;
+    try {
+      this.$fire.firestore
+        .collection("Testimonials")
+        .where('isActive','==',true)
+        .onSnapshot(async (querySnapshot) => {
+          this.testimonialList = [];
+          await querySnapshot.forEach((doc) => {
+            this.testimonialList.push({ id: doc.id, ...doc.data() });
+            this.loading = false;
+          });
+        });
+    } catch (error: any) {
+      this.error = error.code;
+    }
+  }
+}
 </script>
 
 <style lang="scss">
@@ -46,9 +64,9 @@ export default class HomeTestimonial extends Vue {}
   // min-height: 450px;
 }
 
-.v-carousel__controls{
-    justify-content: flex-start;
-    left: 0 !important;
-    right:unset !important;
+.v-carousel__controls {
+  justify-content: flex-start;
+  left: 0 !important;
+  right: unset !important;
 }
 </style>

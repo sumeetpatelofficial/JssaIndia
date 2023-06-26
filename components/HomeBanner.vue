@@ -10,7 +10,7 @@
           who wanted to learn some computer related courses.
         </p>
         <div class="mt-10">
-          <v-btn class="text-capitalize" color="primary" elevation="2">
+          <v-btn class="text-capitalize" color="primary" elevation="2" to="/courses">
             check courses</v-btn
           >
           <v-btn class="text-capitalize grey--text" elevation="0" text plain>

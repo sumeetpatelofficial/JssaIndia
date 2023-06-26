@@ -30,6 +30,7 @@ export default class CourseCard extends Vue {
         border-radius: 4px;
         background-color: rgba($color: #F36705, $alpha: 0.1);
         transition: all ease-in-out 0.3s;
+        height: 100%;
         h5{
             font-weight: 800;
         }

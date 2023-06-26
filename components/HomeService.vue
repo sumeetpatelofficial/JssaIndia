@@ -30,10 +30,7 @@
               </v-row>
             </v-tab-item>
             <v-tab-item value="tab-3">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
-              omnis illo ea. Repellendus consequuntur consectetur asperiores
-              iure aperiam placeat similique aliquam ex dicta laboriosam!
-              Repellendus deserunt aliquam qui harum odio.
+              <HomeVideos />
             </v-tab-item>
           </v-tabs-items>
         </v-col>
@@ -44,17 +41,19 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "nuxt-property-decorator";
+import HomeVideos from "./HomeVideos.vue";
 
 @Component
 export default class HomeService extends Vue {
   @Prop({ type: String, default: "We're here to" }) heading: any;
   @Prop({ type: Boolean, default: false }) videoVisible: any;
   tab: any = null;
-
+  loading:any=false;
   error: any = "";
   courseList: any = [];
 
   created() {
+    this.loading = true;
     try {
       this.$fire.firestore
         .collection("Courses")
@@ -64,6 +63,7 @@ export default class HomeService extends Vue {
             this.courseList.push({ id: doc.id, ...doc.data() });
           });
         });
+        this.loading = false;
     } catch (error: any) {
       this.error = error.code;
     }

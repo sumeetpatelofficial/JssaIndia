@@ -7,8 +7,8 @@
                     <h4 class="body-1 white--text">We are fortunate to educate over </h4>
                     <h4 class="text-h2 white--text my-3">500+ students</h4>
                     <div class="py-3">
-                        <v-btn color="primary" class="text-capitalize mx-3">Check Courses</v-btn>
-                        <v-btn color="white" class="text-capitalize mx-3">Contact Us</v-btn>
+                        <v-btn color="primary" class="text-capitalize mx-3" to="/courses">Check Courses</v-btn>
+                        <v-btn color="white" class="text-capitalize mx-3" to="/contact">Contact Us</v-btn>
                     </div>
                 </v-col>
             </v-row>
