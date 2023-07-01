@@ -1,5 +1,8 @@
 import Vue from "vue";
 import axios from "axios";
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
 
 export const state = () => ({
   authenticated: false,
@@ -8,7 +11,8 @@ export const state = () => ({
     uid: null,
     email: null,
   },
-  userInfo: null
+  userInfo: null,
+  value:'abc'
 });
 
 export const mutations = {
@@ -23,6 +27,9 @@ export const mutations = {
     } else {
       state.userInfo = userInfo;
     }
+  },
+  SET_VALUE(state, payload){
+    state.value = payload;
   }
 };
 export const actions = {
@@ -62,4 +69,8 @@ export const actions = {
         commit("SET_USER_INFO", null);
       });
   },
+
+  updateValue({commit}, payload){
+    commit("SET_VALUE", payload);
+  }
 };

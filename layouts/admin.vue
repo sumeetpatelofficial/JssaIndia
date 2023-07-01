@@ -68,16 +68,6 @@
     </v-app-bar>
     <v-main>
       <v-container fluid>
-        <!-- <v-breadcrumbs :items="crumb">
-          <template v-slot:item="{ item }">
-            <v-breadcrumbs-item
-              :href="item.path"
-              :disabled="items.disabled"
-            >
-              <span class="text-capitalize">{{ item.title }}</span>
-            </v-breadcrumbs-item>
-          </template>
-        </v-breadcrumbs> -->
         <Nuxt />
       </v-container>
     </v-main>
@@ -136,28 +126,6 @@ export default class Admin extends Vue {
         console.log(error);
       });
   }
-
-  // get crumb(){
-  //   const fullPath = this.$route.fullPath
-  //     const params = fullPath.substring(1).split('/')
-  //     const crumbs:any = []
-
-  //     let path = ''
-
-  //     params.forEach((param, index) => {
-  //       path = `${path}/${param}`
-  //       const match = this.$router.match(path)
-
-  //       if (match.name !== null) {
-  //         crumbs.push({
-  //           title: param.replace(/-/g, ' '),
-  //           ...match,
-  //         })
-  //       }
-  //     })
-
-  //   return crumbs;
-  // }
 }
 </script>
 

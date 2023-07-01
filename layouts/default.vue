@@ -337,6 +337,7 @@ export default class userLayout extends Vue {
           displayName: this.displayName
         })
         const userProfile = {
+          email:this.email,
           name: this.displayName,
           isAdmin: false,
           createdAt: this.$fireModule.firestore.FieldValue.serverTimestamp()

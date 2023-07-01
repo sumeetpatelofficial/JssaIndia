@@ -21,7 +21,9 @@
 
     @Component
     export default class HomeCTA extends Vue {
-        
+        mounted(){
+            this.$store.dispatch('updateValue','sumeet')
+        }
     }
 </script>
 
