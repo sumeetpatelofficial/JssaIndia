@@ -68,7 +68,7 @@
         {{ new Date().getFullYear() }}</span
       >
     </v-footer>
-    <v-dialog v-model="loginDialog" max-width="400">      
+    <v-dialog v-model="loginDialog" max-width="400">
       <v-card>
         <div class="card-header">
           <h5 class="text-h4 font-weight-bold text-uppercase">Login</h5>
@@ -105,89 +105,122 @@
                 @keyup.enter="signIn"
               ></v-text-field>
             </v-col>
-          </v-row>                    
-          <v-row class="mt-5">            
+          </v-row>
+          <v-row class="mt-5">
             <v-col cols="12" md="12" class="text-center">
-              <v-btn color="primary" @click="signIn" class="text-capitalize">Login</v-btn>
-              <v-btn text @click="loginDialog = false" class="text-capitalize">Cancel</v-btn>
+              <v-btn color="primary" @click="signIn" class="text-capitalize"
+                >Login</v-btn
+              >
+              <v-btn text @click="loginDialog = false" class="text-capitalize"
+                >Cancel</v-btn
+              >
             </v-col>
           </v-row>
           <v-row>
             <v-col cols="12">
-              <v-btn plain block @click="signUpDialog = true; loginDialog=false" class="text-capitalize">Don't have an account ? Create Now</v-btn>
+              <v-btn
+                plain
+                block
+                @click="
+                  signUpDialog = true;
+                  loginDialog = false;
+                "
+                class="text-capitalize"
+                >Don't have an account ? Create Now</v-btn
+              >
             </v-col>
           </v-row>
         </v-form>
       </v-card>
-    </v-dialog>    
+    </v-dialog>
     <v-dialog v-model="signUpDialog" max-width="400">
       <v-card>
         <div class="card-header">
           <h5 class="text-h4 font-weight-bold text-uppercase">Join Us</h5>
           <p class="grey--text">Create you profile.</p>
           <v-btn icon color="grey" @click="signUpDialog = false"
-            ><v-icon>mdi-window-close</v-icon></v-btn>
+            ><v-icon>mdi-window-close</v-icon></v-btn
+          >
         </div>
         <v-form class="login-form" ref="form" v-model="valid" lazy-validation>
           <v-row>
             <v-col cols="12" md="12">
-            <v-text-field
-              v-model="displayName"          
-              validate-on-blur
-              label="Your Name"
-              outlined
-              hide-details
-              required
-              @keyup.enter="register"
-            ></v-text-field>
+              <v-text-field
+                v-model="displayName"
+                validate-on-blur
+                label="Your Name"
+                outlined
+                hide-details
+                required
+                @keyup.enter="register"
+              ></v-text-field>
             </v-col>
             <v-col cols="12" md="12">
-            <v-text-field
-              v-model="email"          
-              validate-on-blur
-              label="Your Email"
-              required
-              outlined
-              hide-details
-              @keyup.enter="register"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" md="12">
-            <v-text-field
-              :append-icon="showPassword1 ? 'mdi-eye' : 'mdi-eye-off'"
-              v-model="password"          
-              :type="showPassword1 ? 'text' : 'password'"
-              label="Your Password"
-              required
-              outlined
-              hide-details
-              @click:append="showPassword1 = !showPassword1"
-              @keyup.enter="register"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" md="12">
-            <v-text-field
-              :append-icon="showPassword2 ? 'mdi-eye' : 'mdi-eye-off'"
-              v-model="password2"
-              :type="showPassword2 ? 'text' : 'password'"
-              label="confirm Password"
-              required
-              outlined
-              hide-details
-              @click:append="showPassword2 = !showPassword2"
-              @keyup.enter="register"
-            ></v-text-field>
+              <v-radio-group v-model="registerType">
+                <v-radio label="Branch" value="branch"></v-radio>
+                <v-radio label="Student" value="student"></v-radio>
+              </v-radio-group>
+            </v-col>
+            <v-col cols="12" md="12">
+              <v-text-field
+                v-model="email"
+                validate-on-blur
+                label="Your Email"
+                required
+                outlined
+                hide-details
+                @keyup.enter="register"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" md="12">
+              <v-text-field
+                :append-icon="showPassword1 ? 'mdi-eye' : 'mdi-eye-off'"
+                v-model="password"
+                :type="showPassword1 ? 'text' : 'password'"
+                label="Your Password"
+                required
+                outlined
+                hide-details
+                @click:append="showPassword1 = !showPassword1"
+                @keyup.enter="register"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" md="12">
+              <v-text-field
+                :append-icon="showPassword2 ? 'mdi-eye' : 'mdi-eye-off'"
+                v-model="password2"
+                :type="showPassword2 ? 'text' : 'password'"
+                label="confirm Password"
+                required
+                outlined
+                hide-details
+                @click:append="showPassword2 = !showPassword2"
+                @keyup.enter="register"
+              ></v-text-field>
             </v-col>
           </v-row>
-          <v-row class="mt-5">            
+          <v-row class="mt-5">
             <v-col cols="12" md="12" class="text-center">
-              <v-btn :disabled="dialog" color="primary" @click="register">signUp</v-btn>
-              <v-btn text @click="signUpDialog = false" class="text-capitalize">Cancel</v-btn>
+              <v-btn :disabled="dialog" color="primary" @click="register"
+                >signUp</v-btn
+              >
+              <v-btn text @click="signUpDialog = false" class="text-capitalize"
+                >Cancel</v-btn
+              >
             </v-col>
           </v-row>
           <v-row>
             <v-col cols="12">
-              <v-btn plain block @click="signUpDialog = false; loginDialog=true" class="text-capitalize">Already have an account ? Login</v-btn>
+              <v-btn
+                plain
+                block
+                @click="
+                  signUpDialog = false;
+                  loginDialog = true;
+                "
+                class="text-capitalize"
+                >Already have an account ? Login</v-btn
+              >
             </v-col>
           </v-row>
         </v-form>
@@ -264,11 +297,12 @@ export default class userLayout extends Vue {
   email: any = "";
   password: any = "";
   password2: any = "";
+  registerType: any = "student";
   showPassword: any = false;
   showPassword1: any = false;
   showPassword2: any = false;
   dialog = false;
-  displayName:any='';
+  displayName: any = "";
 
   get isMobile() {
     return this.$vuetify.breakpoint.mobile;
@@ -284,46 +318,46 @@ export default class userLayout extends Vue {
   }
 
   signIn() {
-    if(this.email != '' || this.password != ''){
-    this.dialog = true;
-    this.$fire.auth
-      .signInWithEmailAndPassword(this.email, this.password)
-      .then((result: any) => {
-        this.dialog = false;  
-        if (result.user) {
-          if (this.$router.currentRoute.path === "/") {
-            this.$router.push({ path: "/dashboard" });
+    if (this.email != "" || this.password != "") {
+      this.dialog = true;
+      this.$fire.auth
+        .signInWithEmailAndPassword(this.email, this.password)
+        .then((result: any) => {
+          this.dialog = false;
+          if (result.user) {
+            if (this.$router.currentRoute.path === "/") {
+              this.$router.push({ path: "/dashboard" });
+            }
+          } else {
+            this.$fire.auth.signOut().then(() => {
+              this.$router.push({ path: "/" });
+            });
+            Toast.fire({
+              icon: "info",
+              title: "userNotVerified",
+            });
           }
-        } else {
-          this.$fire.auth.signOut().then(() => {
-            this.$router.push({ path: "/" });
-          });
-          Toast.fire({
-            icon: "info",
-            title: "userNotVerified",
-          });
-        }
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        this.dialog = false;
-        if (error.code == "auth/user-not-found") {
-          Toast.fire({
-            icon: "error",
-            title: "User not found, please sign up.",
-          });
-        } else if (error.code == "auth/wrong-password") {
-          Toast.fire({
-            icon: "error",
-            title: "invalidEmailOrPassword",
-          });
-        } else {
-          Toast.fire({
-            icon: "error",
-            title: "somethingWentWrong",
-          });
-        }
-      });
+        })
+        .catch((error) => {
+          // Handle Errors here.
+          this.dialog = false;
+          if (error.code == "auth/user-not-found") {
+            Toast.fire({
+              icon: "error",
+              title: "User not found, please sign up.",
+            });
+          } else if (error.code == "auth/wrong-password") {
+            Toast.fire({
+              icon: "error",
+              title: "invalidEmailOrPassword",
+            });
+          } else {
+            Toast.fire({
+              icon: "error",
+              title: "somethingWentWrong",
+            });
+          }
+        });
     }
   }
 
@@ -331,18 +365,26 @@ export default class userLayout extends Vue {
     if (this.password === this.password2) {
       this.dialog = true;
       try {
-        const userCredential = await this.$fire.auth.createUserWithEmailAndPassword(this.email, this.password);
-        const user:any = userCredential.user;
+        const userCredential =
+          await this.$fire.auth.createUserWithEmailAndPassword(
+            this.email,
+            this.password
+          );
+        const user: any = userCredential.user;
         await user.updateProfile({
-          displayName: this.displayName
-        })
+          displayName: this.displayName,
+        });
         const userProfile = {
-          email:this.email,
+          email: this.email,
           name: this.displayName,
+          type: this.registerType,
           isAdmin: false,
-          createdAt: this.$fireModule.firestore.FieldValue.serverTimestamp()
-        }
-        await this.$fire.firestore.collection("users").doc(user.uid).set(userProfile)
+          createdAt: this.$fireModule.firestore.FieldValue.serverTimestamp(),
+        };
+        await this.$fire.firestore
+          .collection("users")
+          .doc(user.uid)
+          .set(userProfile);
         await user.sendEmailVerification();
         this.dialog = false;
         await this.$fire.auth.signOut();
@@ -352,21 +394,21 @@ export default class userLayout extends Vue {
           icon: "success",
           title: "Sign Up Successful",
           text: "User Registered Successful",
-          showConfirmButton: true
+          showConfirmButton: true,
         });
-      } catch(error:any) {
+      } catch (error: any) {
         this.dialog = false;
         if (error.code == "auth/email-already-in-use") {
           Toast.fire({
             icon: "info",
-            title: "User Already Exists"
+            title: "User Already Exists",
           });
         }
       }
     } else {
       Toast.fire({
         icon: "error",
-        title: "Password Did Not Match"
+        title: "Password Did Not Match",
       });
     }
   }

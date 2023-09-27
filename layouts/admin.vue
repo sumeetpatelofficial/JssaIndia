@@ -44,7 +44,7 @@
             <v-list-item-content>
               <v-list-item-title>{{ item.title }}</v-list-item-title>
             </v-list-item-content>
-          </v-list-item>          
+          </v-list-item>
         </v-list-item-group>
       </v-list>
       <template v-slot:append>
@@ -104,6 +104,16 @@ export default class Admin extends Vue {
       icon: "mdi-school",
     },
     {
+      title: "Generate Certificate",
+      to: "/dashboard/certificate",
+      icon: "mdi-certificate",
+    },
+    {
+      title: "View Certificate",
+      to: "/dashboard/viewcertificate",
+      icon: "mdi-certificate",
+    },
+    {
       title: "Testimonial",
       to: "/dashboard/testimonials",
       icon: "mdi-forum",
@@ -119,7 +129,7 @@ export default class Admin extends Vue {
     this.$fire.auth
       .signOut()
       .then(() => {
-        this.$router.push({path:"/"})
+        this.$router.push({ path: "/" });
       })
       .catch(function (error) {
         // Handle Errors here.

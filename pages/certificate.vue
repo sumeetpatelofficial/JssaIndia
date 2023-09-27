@@ -4,62 +4,7 @@
       <h4 class="body-1 white--text font-weight-bold">Find You Certificate</h4>
     </div>
     <v-container>
-      <v-row justify="center">
-        <v-col cols="12" md="6">
-          <v-form class="login-form">
-            <v-text-field
-              label="Student Id"
-              placeholder="Enter Student Id"
-              outlined
-              required
-              append-icon="mdi-magnify"
-              @click:append="search"
-              persistent-hint
-              hint="Add your student id and hit magnify icon."
-              v-model="studentIdInput"
-            ></v-text-field>
-          </v-form>
-        </v-col>
-      </v-row>
-      <v-row justify="center">
-        <v-col cols="12" md="10">
-          <v-sheet color="white" rounded elevation="2">
-            <div class="certificate-area" v-if="studentData.length">
-              <p id="ref">{{ (studentData[0].Addmissiondate)?.slice(-4)}} </p>
-              <p id="studId">{{ studentData[0]?.StudentId }}</p>
-              <p id="name">{{ `${studentData[0]?.Firstname} ${studentData[0]?.Lastname}`}}</p>
-              <p id="course">{{ studentData[0]?.Coursename }}</p>
-              <p id="grade">{{ studentData[0]?.Grade }}</p>
-              <p id="sdate">{{ studentData[0]?.Addmissiondate }}</p>
-              <p id="edate">{{ studentData[0]?.Enddate }}</p>
-              <p id="center">{{ studentData[0]?.Centername }}</p>
-              <p id="cdate">{{ studentData[0]?.Certificatedate }}</p>
-              <p id="location">{{ studentData[0]?.State }}</p>
-            </div>
-            <div class="px-10 py-10 text-center" v-else>
-              <v-row
-                class="fill-height"
-                align-content="center"
-                justify="center"
-              >
-                <v-col class="text-center" cols="12">
-                  <p class="mb-0" v-if="!loading">No Certificate Found !!!</p>
-                  <p class="mb-0" v-if="loading">Getting your files</p>
-                </v-col>
-                <v-col cols="6" v-if="loading">
-                  <v-progress-linear
-                  :active="loading"
-                    :indeterminate="loading"
-                    color="deep-purple accent-4"                    
-                    rounded
-                    height="6"
-                  ></v-progress-linear>
-                </v-col>
-              </v-row>
-            </div>
-          </v-sheet>
-        </v-col>
-      </v-row>
+      <ViewCerti />
     </v-container>
     <HomeCTA />
   </div>
@@ -68,44 +13,16 @@
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator";
 import HomeCTA from "~/components/HomeCTA.vue";
-
+import ViewCerti from "@/components/ViewCerti.vue";
 @Component({
   head: {
     title: "Certificate",
   },
+  components: {
+    ViewCerti,
+  },
 })
-export default class Certificate extends Vue {
-  showCerti: any = false;
-  studentIdInput: any = "";
-  error: any = "";
-  loading: any = false;
-  studentData: any = '';
-  progressValue=0
-  search() {
-    if (this.studentIdInput != "") {
-      this.studentData = [];
-      this.loading = true;
-      try {
-        this.$fire.firestore
-          .collection("Students")
-          .where("StudentId", "==", this.studentIdInput)
-          .get()
-          .then((querySnapshot) => {
-            this.loading = false;
-            querySnapshot.forEach((doc) => {
-              this.studentData.push({...doc.data()});              
-            });
-          });          
-      } catch (error: any) {
-        this.error = error.code;
-      }
-    }
-  }
-
-  mounted(){
-    this.studentData = []
-  }
-}
+export default class Certificate extends Vue {}
 </script>
 
 <style scoped lang="scss">
