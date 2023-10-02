@@ -1,8 +1,8 @@
 import Vue from "vue";
 import axios from "axios";
-import Vuex from 'vuex'
+import Vuex from "vuex";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export const state = () => ({
   authenticated: false,
@@ -12,7 +12,7 @@ export const state = () => ({
     email: null,
   },
   userInfo: null,
-  value:'abc'
+  value: "abc",
 });
 
 export const mutations = {
@@ -28,9 +28,9 @@ export const mutations = {
       state.userInfo = userInfo;
     }
   },
-  SET_VALUE(state, payload){
+  SET_VALUE(state, payload) {
     state.value = payload;
-  }
+  },
 };
 export const actions = {
   onAuthStateChangedAction: ({ commit, dispatch }, { authUser, claims }) => {
@@ -53,14 +53,12 @@ export const actions = {
 
   getUserInfo({ commit, state }) {
     const user = this.$fire.firestore.collection("users").doc(state.user.uid);
-
     user
       .get()
       .then((doc) => {
         if (doc.exists) {
           commit("SET_USER_INFO", doc.data());
         } else {
-          // doc.data() will be undefined in this case
           commit("SET_USER_INFO", null);
         }
       })
@@ -70,7 +68,7 @@ export const actions = {
       });
   },
 
-  updateValue({commit}, payload){
+  updateValue({ commit }, payload) {
     commit("SET_VALUE", payload);
-  }
+  },
 };

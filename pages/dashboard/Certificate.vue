@@ -212,7 +212,7 @@ export default class GenerateCertificate extends Vue {
     Enddate: "",
     Grade: "",
     Certificatedate: "",
-    Timestamp: "",
+    Timestamp: Date.now(),
     IsActive: false,
   };
   headers: any = [
@@ -261,10 +261,12 @@ export default class GenerateCertificate extends Vue {
           this.$fire.firestore
             .collection("Students")
             .doc(this.editId)
-            .update(this.student);
-          this.snackbarConfig.snackbarText = "student Certified.";
-          this.snackbarConfig.snackbar = true;
-          this.snackbarConfig.color = "success";
+            .update(this.student)
+            .then(() => {
+              this.snackbarConfig.snackbarText = "student Certified.";
+              this.snackbarConfig.snackbar = true;
+              this.snackbarConfig.color = "success";
+            });
         } catch (error: any) {
           console.log(error);
         }

@@ -1,6 +1,13 @@
 <template>
   <div>
     <v-row>
+      <v-col cols="12" md="12">
+        <h1 class="text--h1 orange--text text--darken-1">
+          Welcome, {{ $store.state?.userInfo?.name }}
+        </h1>
+      </v-col>
+    </v-row>
+    <v-row>
       <v-col cols="12" md="3">
         <v-sheet
           color="indigo lighten-5"

@@ -44,6 +44,15 @@
                 >{{ item.StudentId }}</v-chip
               >
             </td>
+            <td>
+              <v-switch
+                inset
+                v-model="item.isOldCertificate"
+                :label="item.isOldCertificate ? 'Old' : 'New'"
+                @change="updateStudentCertiType(item.id, item.isOldCertificate)"
+              ></v-switch>
+              <!-- {{ item?.isOldCertificate }} -->
+            </td>
             <td class="text-lowercase">
               {{ `${item.Firstname}  ${item.Lastname}` }}
             </td>
@@ -75,13 +84,27 @@
                     >
                     Delete
                   </v-list-item>
-                  <v-list-item @click.stop.prevent="printCerti(item.id)">
+                  <v-list-item
+                    v-if="item.IsActive"
+                    @click.stop.prevent="printCerti(item.id)"
+                  >
                     <v-list-item-icon
                       ><v-icon color="info"
                         >mdi-printer</v-icon
                       ></v-list-item-icon
                     >
                     Print
+                  </v-list-item>
+                  <v-list-item
+                    v-if="item.IsActive"
+                    @click.stop.prevent="confirmRemove(item.id)"
+                  >
+                    <v-list-item-icon
+                      ><v-icon color="info"
+                        >mdi-refresh</v-icon
+                      ></v-list-item-icon
+                    >
+                    Reinitiate Certificate
                   </v-list-item>
                 </v-list>
               </v-menu>
@@ -503,6 +526,32 @@
         </v-row>
       </v-sheet>
     </v-dialog>
+
+    <v-dialog v-model="confirmRemoveDialog" max-width="320">
+      <v-card>
+        <v-card-title class="text-h5">
+          <v-icon color="error" class="vertical-middle">mdi-delete</v-icon>
+          <span class="error--text">Confirm Remove</span>
+        </v-card-title>
+
+        <v-card-text class="text-h6">
+          Are you sure you want to remove end date, grade and certificate date ?
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn color="green darken-1" text @click="confirmDialog = false">
+            No
+          </v-btn>
+
+          <v-btn color="error darken-1" text @click="removeItem">
+            Yes, I Confirm
+          </v-btn>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-sheet>
 </template>
 
@@ -533,6 +582,7 @@ export default class Students extends Vue {
   editForm: any = false;
   editId: any = "";
   confirmDialog: any = false;
+  confirmRemoveDialog: any = false;
   searchStudent: any = "";
   snackbarConfig: any = {
     snackbar: false,
@@ -558,14 +608,16 @@ export default class Students extends Vue {
     Enddate: "",
     Grade: "",
     Certificatedate: "",
-    Timestamp: "",
+    Timestamp: Date.now(),
     IsActive: false,
+    isOldCertificate: false,
   };
 
   certificateStudent: any = {};
 
   headers: any = [
     { text: "Stud.Id", value: "StudentId" },
+    { text: "Type", value: "isOldCertificate" },
     { text: "Name", value: "Firstname" },
     { text: "Course", value: "Coursename" },
     { text: "Started", value: "Addmissiondate" },
@@ -665,6 +717,17 @@ export default class Students extends Vue {
     await this.getAllStudents();
     await this.getCenterList();
     await this.getCourseList();
+
+    // this.$fire.firestore
+    //   .collection("Students")
+    //   .onSnapshot(async (querySnapshot) => {
+    //     await querySnapshot.forEach((doc) => {
+    //       this.$fire.firestore
+    //         .collection("Students")
+    //         .doc(doc.id)
+    //         .set({ isOldCertificate: true }, { merge: true });
+    //     });
+    //   });
   }
 
   async addStudent() {
@@ -803,6 +866,70 @@ export default class Students extends Vue {
   closePrintDialog() {
     this.printDialog = false;
     this.certificateStudent = {};
+  }
+
+  async updateStudentCertiType(id: any, currentValue: boolean) {
+    // console.log(id, currentValue);
+    this.loading = true;
+    await setTimeout(() => {
+      try {
+        this.$fire.firestore
+          .collection("Students")
+          .doc(id)
+          .update({ isOldCertificate: currentValue })
+          .then(() => {
+            console.log("success");
+            this.snackbarConfig.snackbarText = currentValue
+              ? "student certificate changed to Old.."
+              : "student certificate changed to New..";
+            this.snackbarConfig.snackbar = true;
+            this.snackbarConfig.color = "success";
+          })
+          .catch((error: any) => {
+            console.log(error);
+          });
+      } catch (error: any) {
+        console.log(error);
+      } finally {
+        this.loading = false;
+      }
+    }, 2000);
+  }
+
+  confirmRemove(id: any) {
+    this.editId = id;
+    this.confirmRemoveDialog = true;
+  }
+
+  async removeItem() {
+    this.loading = true;
+    await setTimeout(() => {
+      try {
+        if (this.editId) {
+          this.$fire.firestore
+            .collection("Students")
+            .doc(this.editId)
+            .update({
+              Enddate: "",
+              Grade: "",
+              Certificatedate: "",
+              IsActive: false,
+            })
+            .then(() => {
+              this.snackbarConfig.snackbarText = "Student updated.";
+              this.snackbarConfig.snackbar = true;
+              this.snackbarConfig.color = "error";
+              this.confirmRemoveDialog = false;
+              this.editId = "";
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        }
+      } catch (error: any) {
+        console.log(error);
+      }
+    }, 1000);
   }
 }
 </script>
