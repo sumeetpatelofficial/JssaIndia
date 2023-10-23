@@ -11,16 +11,18 @@
   }
 
   @page {
-    size:A4 landscape;
-    margin: 66mm 0 0 75mm
+    size: A4 landscape;
+    margin: 121.36mm 0 0 67mm
   }
 
   .certificate-print.old .ref-no {
     position: relative;
+    margin-left: 197px;
   }
 
   .certificate-print.old .student-id {
     margin-top: 20px;
+    margin-left: 197px;
   }
 
   .certificate-print.old .student-name {
