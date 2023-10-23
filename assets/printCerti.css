@@ -8,12 +8,10 @@
     font-size: 16px;
     font-weight: 600;
     display: block;
-    padding-top: 320px;
-    padding-left: 250px;
   }
 
   @page {
-    orientation: landscape;
+    size:A4 landscape;
     margin: 66mm 0 0 75mm
   }
 
