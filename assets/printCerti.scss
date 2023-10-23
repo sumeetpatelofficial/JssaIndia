@@ -1,57 +1,60 @@
 .certificate-print {
   position: relative;
-  &.old {
-    @media print {
-      font-family: Verdana, Geneva, Tahoma, sans-serif;
-      font-size: 16px;
-      font-weight: 600;
-      @page {
-        size: A4; /* DIN A4 standard, Europe */
-        orientation: landscape;
-        margin: 0;
-        margin-top: 66mm;
-        margin-left: 75mm;
-      }
-      display: block;
-      padding-top: 320px;
-      padding-left: 250px;
-      .ref-no {
-        position: relative;
-      }
-      .student-id {
-        margin-top: 20px;
-      }
-      .student-name {
-        margin-top: 60px;
-        text-align: center;
-        text-transform: uppercase;
-        font-size: 18px;
-      }
-      .course-name {
-        margin-top: 65px;
-        text-align: center;
-        text-transform: uppercase;
-      }
-      .grade {
-        margin-top: 40px;
-        margin-left: 245px;
-        display: flex;
-        width: 100%;
-      }
-      .center-name {
-        margin-top: 35px;
-        text-align: center;
-        text-transform: uppercase;
-      }
-      .certificate-date {
-        margin-top: 100px;
-        margin-left: 130px;
-      }
-      .location {
-        margin-top: 17px;
-        margin-left: 130px;
-        text-transform: uppercase;
-      }
+}
+@media print {
+  .certificate-print.old {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    display: block;
+    padding-top: 320px;
+    padding-left: 250px;
+  }
+  @page {
+    .certificate-print.old {
+      size: A4;
+      /* DIN A4 standard, Europe */
+      orientation: landscape;
+      margin: 0;
+      margin-top: 66mm;
+      margin-left: 75mm;
     }
+  }
+  .certificate-print.old .ref-no {
+    position: relative;
+  }
+  .certificate-print.old .student-id {
+    margin-top: 20px;
+  }
+  .certificate-print.old .student-name {
+    margin-top: 60px;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 18px;
+  }
+  .certificate-print.old .course-name {
+    margin-top: 65px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .certificate-print.old .grade {
+    margin-top: 40px;
+    margin-left: 245px;
+    display: flex;
+    width: 100%;
+  }
+  .certificate-print.old .center-name {
+    margin-top: 35px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .certificate-print.old .certificate-date {
+    margin-top: 100px;
+    margin-left: 130px;
+  }
+  .certificate-print.old .location {
+    margin-top: 17px;
+    margin-left: 130px;
+    text-transform: uppercase;
   }
 }
