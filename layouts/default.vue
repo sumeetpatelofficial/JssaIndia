@@ -227,9 +227,9 @@
       </v-card>
     </v-dialog>
     <v-dialog v-model="dialog" hide-overlay persistent width="400">
-      <v-card color="success" dark>
+      <v-card class="wait-dialog" color="success" dark>
         <v-card-text>
-          Please wait while we are verifing details
+          <span>Please wait while we are verifing details</span>
           <v-progress-linear
             indeterminate
             color="white"
@@ -430,5 +430,15 @@ export default class userLayout extends Vue {
   position: absolute;
   top: 20px;
   right: 20px;
+}
+.wait-dialog {
+  padding-top: 10px;
+}
+.wait-dialog > .v-card__text {
+  font-size: 16px;
+  span {
+    display: block;
+    margin-bottom: 10px;
+  }
 }
 </style>

@@ -428,89 +428,8 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-
     <v-dialog v-model="printDialog">
-      <v-sheet elevation="0" v-if="certificateStudent"
-        ><div style="padding-top: 320px" id="printableCertificate">
-          <div
-            style="
-              margin-left: 226px;
-              text-transform: uppercase;
-              font-weight: 500;
-            "
-          >
-            <p ID="RefNo">{{ certificateStudent.Addmissiondate?.slice(-4) }}</p>
-          </div>
-          <div style="margin-left: 226px; margin-top: 20px; font-weight: 500">
-            <p ID="lblStudId">{{ certificateStudent.StudentId }}</p>
-          </div>
-          <div
-            style="
-              margin-top: 57px;
-              text-align: center;
-              font-weight: 500;
-              text-transform: uppercase;
-              font-size: 18px;
-            "
-          >
-            <p ID="lblStudName">
-              {{
-                `${certificateStudent.Firstname} ${certificateStudent.Lastname}`
-              }}
-            </p>
-          </div>
-          <div
-            style="
-              margin-top: 65px;
-              text-align: center;
-              font-weight: 500;
-              text-transform: uppercase;
-            "
-          >
-            <p ID="lblCourse">{{ certificateStudent.Coursename }}</p>
-          </div>
-          <div
-            style="
-              margin-top: 40px;
-              margin-left: 245px;
-              font-weight: 500;
-              display: flex;
-              width: 100%;
-            "
-          >
-            <p ID="lblGarde" class="margin-right" Text="A+">
-              {{ certificateStudent.Grade }}
-            </p>
-            <p ID="lblStartDate">{{ certificateStudent.Addmissiondate }}</p>
-            <p ID="lblEndDate" class="margin-left" Text="25/07/2015">
-              {{ certificateStudent.Enddate }}
-            </p>
-          </div>
-          <div
-            style="
-              margin-top: 35px;
-              text-align: center;
-              font-weight: 500;
-              text-transform: uppercase;
-            "
-          >
-            <p ID="lblCenter">{{ certificateStudent.centerName }}</p>
-          </div>
-          <div style="margin-top: 83px; margin-left: 194px; font-weight: 500">
-            <p ID="lblCertiDate">{{ certificateStudent.Certificatedate }}</p>
-          </div>
-          <div
-            style="
-              margin-top: 17px;
-              margin-left: 194px;
-              text-transform: uppercase;
-              font-weight: 500;
-            "
-          >
-            <p ID="lblState">gujarat</p>
-          </div>
-          <div></div>
-        </div>
+      <v-sheet elevation="0" v-if="certificateStudent">
         <v-row class="py-2 px-2">
           <v-col cols="12" md="12">
             <v-btn
@@ -524,6 +443,43 @@
             >
           </v-col>
         </v-row>
+        <div id="printableCertificate" class="certificate-print old">
+          <div class="ref-no" style="">
+            <p ID="RefNo">{{ certificateStudent.Addmissiondate?.slice(-4) }}</p>
+          </div>
+          <div class="student-id" style="">
+            <p ID="lblStudId">{{ certificateStudent.StudentId }}</p>
+          </div>
+          <div class="student-name" style="">
+            <p ID="lblStudName">
+              {{
+                `${certificateStudent.Firstname} ${certificateStudent.Lastname}`
+              }}
+            </p>
+          </div>
+          <div class="course-name" style="">
+            <p ID="lblCourse">{{ certificateStudent.Coursename }}</p>
+          </div>
+          <div class="grade" style="">
+            <p ID="lblGarde" class="margin-right" Text="A+">
+              {{ certificateStudent.Grade }}
+            </p>
+            <p ID="lblStartDate">{{ certificateStudent.Addmissiondate }}</p>
+            <p ID="lblEndDate" class="margin-left" Text="25/07/2015">
+              {{ certificateStudent.Enddate }}
+            </p>
+          </div>
+          <div class="center-name" style="">
+            <p ID="lblCenter">{{ certificateStudent.Centername }}</p>
+          </div>
+          <div class="certificate-date" style="">
+            <p ID="lblCertiDate">{{ certificateStudent.Certificatedate }}</p>
+          </div>
+          <div class="location" style="">
+            <p ID="lblState">gujarat</p>
+          </div>
+          <div></div>
+        </div>
       </v-sheet>
     </v-dialog>
 
@@ -934,7 +890,7 @@ export default class Students extends Vue {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .date-picker-style {
   position: absolute;
   top: 22px;

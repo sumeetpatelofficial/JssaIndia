@@ -8,11 +8,11 @@ $container-padding-x: 15px !default;
 $container-padding-y: 0 !default;
 
 $grid-breakpoints: (
-  'xs': 0,
-  'sm': 340px,
-  'md': 767px,
-  'lg': 800px - 30px,
-  'xl': 1280px - 30px
+  "xs": 0,
+  "sm": 340px,
+  "md": 767px,
+  "lg": 800px - 30px,
+  "xl": 1280px - 30px,
 );
 
 $headings: (
@@ -62,13 +62,70 @@ $headings: (
   ),
 );
 
-$data-table-regular-row-font-size	: 14px;
-$list-item-title-font-size	: 14px;
+$data-table-regular-row-font-size: 14px;
+$list-item-title-font-size: 14px;
 $snackbar-content-font-size: 14px;
 
-
-
-.page-header, .page-body{
+.page-header,
+.page-body {
   position: relative;
   padding: 15px;
+}
+
+.certificate-print {
+  position: relative;
+  &.old {
+    @media print {
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      @page {
+        size: A4; /* DIN A4 standard, Europe */
+        orientation: landscape;
+        margin: 0;
+        margin-top: 66mm;
+        margin-left: 75mm;
+      }
+      display: block;
+      padding-top: 320px;
+      padding-left: 250px;
+      .ref-no {
+        position: relative;
+      }
+      .student-id {
+        margin-top: 20px;
+      }
+      .student-name {
+        margin-top: 60px;
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 18px;
+      }
+      .course-name {
+        margin-top: 65px;
+        text-align: center;
+        text-transform: uppercase;
+      }
+      .grade {
+        margin-top: 40px;
+        margin-left: 245px;
+        display: flex;
+        width: 100%;
+      }
+      .center-name {
+        margin-top: 35px;
+        text-align: center;
+        text-transform: uppercase;
+      }
+      .certificate-date {
+        margin-top: 100px;
+        margin-left: 130px;
+      }
+      .location {
+        margin-top: 17px;
+        margin-left: 130px;
+        text-transform: uppercase;
+      }
+    }
+  }
 }
