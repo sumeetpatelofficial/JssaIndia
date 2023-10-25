@@ -905,7 +905,7 @@ export default class Students extends Vue {
   top: 2px;
 }
 .margin-right {
-  margin-right: 350px;
+  margin-right: 375px;
 }
 
 .margin-left {
