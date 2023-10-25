@@ -429,62 +429,62 @@
       </v-card>
     </v-dialog>
 
-    <v-dialog v-model="printDialog" max-width="600">
-      <v-sheet elevation="0" v-if="certificateStudent">
-        <v-row class="py-2 px-2">
-          <v-col cols="12" md="12">
-            <v-btn
-              v-print="'#printableCertificate'"
-              class="text-capitalize"
-              color="primary"
-              >Print</v-btn
-            >
-            <v-btn outlined class="text-capitalize" @click="closePrintDialog"
-              >Cancel</v-btn
-            >
-          </v-col>
-        </v-row>
-        <div id="printableCertificate" class="certificate-print old">
-          <div class="ref-no" style="">
-            <p ID="RefNo">{{ certificateStudent.Addmissiondate?.slice(-4) }}</p>
-          </div>
-          <div class="student-id" style="">
-            <p ID="lblStudId">{{ certificateStudent.StudentId }}</p>
-          </div>
-          <div class="student-name" style="">
-            <p ID="lblStudName">
-              {{
-                `${certificateStudent.Firstname} ${certificateStudent.Lastname}`
-              }}
-            </p>
-          </div>
-          <div class="course-name" style="">
-            <p ID="lblCourse">{{ certificateStudent.Coursename }}</p>
-          </div>
-          <div class="grade" style="">
-            <p ID="lblGarde" class="margin-right grade-value" Text="A+">
-              {{ certificateStudent.Grade }}
-            </p>
-            <p ID="lblStartDate" class="addmission-date">
-              {{ certificateStudent.Addmissiondate }}
-            </p>
-            <p ID="lblEndDate" class="margin-left end-date" Text="25/07/2015">
-              {{ certificateStudent.Enddate }}
-            </p>
-          </div>
-          <div class="center-name" style="">
-            <p ID="lblCenter">{{ certificateStudent.Centername }}</p>
-          </div>
-          <div class="certificate-date" style="">
-            <p ID="lblCertiDate">{{ certificateStudent.Certificatedate }}</p>
-          </div>
-          <div class="location" style="">
-            <p ID="lblState">gujarat</p>
-          </div>
-          <div></div>
+    <!-- <v-dialog v-model="printDialog" max-width="600"> -->
+    <v-sheet elevation="0" v-if="certificateStudent">
+      <v-row class="py-2 px-2">
+        <v-col cols="12" md="12">
+          <v-btn
+            v-print="'#printableCertificate'"
+            class="text-capitalize"
+            color="primary"
+            >Print</v-btn
+          >
+          <v-btn outlined class="text-capitalize" @click="closePrintDialog"
+            >Cancel</v-btn
+          >
+        </v-col>
+      </v-row>
+      <div id="printableCertificate" class="certificate-print old">
+        <div class="ref-no" style="">
+          <p ID="RefNo">{{ certificateStudent.Addmissiondate?.slice(-4) }}</p>
         </div>
-      </v-sheet>
-    </v-dialog>
+        <div class="student-id" style="">
+          <p ID="lblStudId">{{ certificateStudent.StudentId }}</p>
+        </div>
+        <div class="student-name" style="">
+          <p ID="lblStudName">
+            {{
+              `${certificateStudent.Firstname} ${certificateStudent.Lastname}`
+            }}
+          </p>
+        </div>
+        <div class="course-name" style="">
+          <p ID="lblCourse">{{ certificateStudent.Coursename }}</p>
+        </div>
+        <div class="grade" style="">
+          <p ID="lblGarde" class="margin-right grade-value" Text="A+">
+            {{ certificateStudent.Grade }}
+          </p>
+          <p ID="lblStartDate" class="addmission-date">
+            {{ certificateStudent.Addmissiondate }}
+          </p>
+          <p ID="lblEndDate" class="margin-left end-date" Text="25/07/2015">
+            {{ certificateStudent.Enddate }}
+          </p>
+        </div>
+        <div class="center-name" style="">
+          <p ID="lblCenter">{{ certificateStudent.Centername }}</p>
+        </div>
+        <div class="certificate-date" style="">
+          <p ID="lblCertiDate">{{ certificateStudent.Certificatedate }}</p>
+        </div>
+        <div class="location" style="">
+          <p ID="lblState">gujarat</p>
+        </div>
+        <div></div>
+      </div>
+    </v-sheet>
+    <!-- </v-dialog> -->
 
     <v-dialog v-model="confirmRemoveDialog" max-width="320">
       <v-card>
@@ -572,7 +572,7 @@ export default class Students extends Vue {
     isOldCertificate: false,
   };
 
-  certificateStudent: any = {};
+  // certificateStudent: any = {};
 
   headers: any = [
     { text: "Stud.Id", value: "StudentId" },
@@ -604,6 +604,25 @@ export default class Students extends Vue {
   emailRules: any = emailRules;
   TelephoneNumberRule: any = TelephoneNumberRule;
   onlyCharacterRule: any = onlyCharacterRule;
+
+  certificateStudent: any = {
+    Gender: "Male",
+    Coursename: "CERTIFICATE IN COMPUTER CONCEPT ( C.C.C)",
+    StudentId: "wqaeEkot",
+    Firstname: "Sumeet Rajendrakumar ",
+    Contactno: "6353244922",
+    Enddate: "07/05/2022",
+    Grade: "A",
+    Certificatedate: "30/05/2022",
+    Centername: "Preet Computers",
+    City: "vadodara",
+    Lastname: "Patel",
+    Email: "info@jssaindia.in",
+    Qualification: "12th pass",
+    Address: "tarsali",
+    State: "gujarat",
+    Addmissiondate: "08/02/2022",
+  };
 
   courseSelection(item: any) {
     this.student.Coursename =
@@ -906,13 +925,6 @@ export default class Students extends Vue {
   right: 30px;
   top: 2px;
 }
-// .margin-right {
-//   ;
-// }
-
-// .margin-left {
-
-// }
 .v-dialog {
   background-color: #ffffff;
 }
