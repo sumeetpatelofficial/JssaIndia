@@ -428,7 +428,8 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <v-dialog v-model="printDialog">
+
+    <v-dialog v-model="printDialog" max-width="600">
       <v-sheet elevation="0" v-if="certificateStudent">
         <v-row class="py-2 px-2">
           <v-col cols="12" md="12">

@@ -8,11 +8,7 @@
     font-size: 16px;
     font-weight: 600;
     display: block;
-    margin: 121.36mm 0 0 67mm;
-  }
-
-  body {
-    -webkit-print-color-adjust: exact;
+    margin: 115mm 0 0 60mm;
   }
 
   @page {
