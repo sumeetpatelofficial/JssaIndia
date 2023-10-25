@@ -8,7 +8,7 @@
     font-size: 16px;
     font-weight: 600;
     display: block;
-    margin: 109.3mm 0 0 45mm;
+    margin: 109.4mm 0 0 45mm;
   }
 
   @page {
@@ -36,7 +36,7 @@
   }
 
   .certificate-print.old .course-name {
-    margin-top: 75px;
+    margin-top: 78px;
     text-align: center;
     text-transform: uppercase;
   }
@@ -59,13 +59,13 @@
   }
 
   .certificate-print.old .center-name {
-    margin-top: 35px;
+    margin-top: 33px;
     text-align: center;
     text-transform: uppercase;
   }
 
   .certificate-print.old .certificate-date {
-    margin-top: 92px;
+    margin-top: 95px;
     margin-left: 130px;
   }
 
