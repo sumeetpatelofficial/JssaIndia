@@ -11,6 +11,14 @@
     margin: 109.4mm 0 0 45mm;
   }
 
+  .certificate-print.new {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    display: block;
+    margin: 100mm 0 0 30mm;
+  }
+
   @page {
     size: A4 landscape;
     margin: 0;
