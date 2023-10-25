@@ -462,11 +462,13 @@
             <p ID="lblCourse">{{ certificateStudent.Coursename }}</p>
           </div>
           <div class="grade" style="">
-            <p ID="lblGarde" class="margin-right" Text="A+">
+            <p ID="lblGarde" class="margin-right grade-value" Text="A+">
               {{ certificateStudent.Grade }}
             </p>
-            <p ID="lblStartDate">{{ certificateStudent.Addmissiondate }}</p>
-            <p ID="lblEndDate" class="margin-left" Text="25/07/2015">
+            <p ID="lblStartDate" class="addmission-date">
+              {{ certificateStudent.Addmissiondate }}
+            </p>
+            <p ID="lblEndDate" class="margin-left end-date" Text="25/07/2015">
               {{ certificateStudent.Enddate }}
             </p>
           </div>
@@ -904,13 +906,13 @@ export default class Students extends Vue {
   right: 30px;
   top: 2px;
 }
-.margin-right {
-  margin-right: 390px;
-}
+// .margin-right {
+//   ;
+// }
 
-.margin-left {
-  margin-left: 140px;
-}
+// .margin-left {
+
+// }
 .v-dialog {
   background-color: #ffffff;
 }
