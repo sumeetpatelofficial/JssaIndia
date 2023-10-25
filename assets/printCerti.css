@@ -8,7 +8,7 @@
     font-size: 16px;
     font-weight: 600;
     display: block;
-    margin: 105mm 0 0 45mm;
+    margin: 108mm 0 0 45mm;
   }
 
   @page {
@@ -20,7 +20,7 @@
 
   .certificate-print.old .ref-no {
     position: relative;
-    margin-left: 185px;
+    margin-left: 180px;
   }
 
   .certificate-print.old .student-id {
@@ -43,7 +43,7 @@
 
   .certificate-print.old .grade {
     margin-top: 40px;
-    margin-left: 245px;
+    margin-left: 235px;
     display: flex;
     width: 100%;
   }
