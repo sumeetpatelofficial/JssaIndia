@@ -82,4 +82,61 @@
     margin-left: 130px;
     text-transform: uppercase;
   }
+
+  .certificate-print.new .ref-no {
+    position: relative;
+    margin-left: 175px;
+  }
+
+  .certificate-print.new .student-id {
+    margin-top: 17px;
+    margin-left: 185px;
+  }
+
+  .certificate-print.new .student-name {
+    margin-top: 52px;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 18px;
+  }
+
+  .certificate-print.new .course-name {
+    margin-top: 78px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .certificate-print.new .grade {
+    margin-top: 33px;
+    margin-left: 230px;
+    display: flex;
+    width: 100%;
+  }
+
+  .certificate-print.new .grade .grade-value {
+    margin-right: 400px
+  }
+
+  .certificate-print.new .grade .addmission-date {}
+
+  .certificate-print.new .grade .end-date {
+    margin-left: 170px;
+  }
+
+  .certificate-print.new .center-name {
+    margin-top: 33px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .certificate-print.new .certificate-date {
+    margin-top: 95px;
+    margin-left: 130px;
+  }
+
+  .certificate-print.new .location {
+    margin-top: 17px;
+    margin-left: 130px;
+    text-transform: uppercase;
+  }
 }
