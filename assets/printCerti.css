@@ -20,29 +20,29 @@
 
   .certificate-print.old .ref-no {
     position: relative;
-    margin-left: 180px;
+    margin-left: 175px;
   }
 
   .certificate-print.old .student-id {
-    margin-top: 17px;
+    margin-top: 20px;
     margin-left: 185px;
   }
 
   .certificate-print.old .student-name {
-    margin-top: 50px;
+    margin-top: 55px;
     text-align: center;
     text-transform: uppercase;
     font-size: 18px;
   }
 
   .certificate-print.old .course-name {
-    margin-top: 72px;
+    margin-top: 80px;
     text-align: center;
     text-transform: uppercase;
   }
 
   .certificate-print.old .grade {
-    margin-top: 40px;
+    margin-top: 35px;
     margin-left: 230px;
     display: flex;
     width: 100%;
@@ -65,12 +65,12 @@
   }
 
   .certificate-print.old .certificate-date {
-    margin-top: 92px;
+    margin-top: 93px;
     margin-left: 130px;
   }
 
   .certificate-print.old .location {
-    margin-top: 17px;
+    margin-top: 19px;
     margin-left: 130px;
     text-transform: uppercase;
   }
