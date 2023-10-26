@@ -444,7 +444,7 @@
           >
         </v-col>
       </v-row>
-      <div id="printableCertificate" class="certificate-print new">
+      <div id="printableCertificate" class="certificate-print old">
         <div class="ref-no" style="">
           <p ID="RefNo">{{ certificateStudent.Addmissiondate?.slice(-4) }}</p>
         </div>
