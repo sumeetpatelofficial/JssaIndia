@@ -16,7 +16,7 @@
     font-size: 16px;
     font-weight: 600;
     display: block;
-    margin: 98mm 0 0 22mm;
+    margin: 97mm 0 0 22mm;
   }
 
   @page {
@@ -130,7 +130,7 @@
   }
 
   .certificate-print.new .certificate-date {
-    margin-top: 70px;
+    margin-top: 55px;
     margin-left: 130px;
   }
 
