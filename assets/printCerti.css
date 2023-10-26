@@ -108,19 +108,19 @@
 
   .certificate-print.new .grade {
     margin-top: 30px;
-    margin-left: 180px;
+    margin-left: 200px;
     display: flex;
     width: 100%;
   }
 
   .certificate-print.new .grade .grade-value {
-    margin-right: 400px
+    margin-right: 380px
   }
 
   .certificate-print.new .grade .addmission-date {}
 
   .certificate-print.new .grade .end-date {
-    margin-left: 170px;
+    margin-left: 180px;
   }
 
   .certificate-print.new .center-name {
@@ -130,7 +130,7 @@
   }
 
   .certificate-print.new .certificate-date {
-    margin-top: 60px;
+    margin-top: 70px;
     margin-left: 130px;
   }
 
