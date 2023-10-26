@@ -16,7 +16,7 @@
     font-size: 16px;
     font-weight: 600;
     display: block;
-    margin: 97mm 0 0 22mm;
+    margin: 97.5mm 0 0 22mm;
   }
 
   @page {
@@ -107,7 +107,7 @@
   }
 
   .certificate-print.new .grade {
-    margin-top: 33px;
+    margin-top: 30px;
     margin-left: 180px;
     display: flex;
     width: 100%;
@@ -124,13 +124,13 @@
   }
 
   .certificate-print.new .center-name {
-    margin-top: 33px;
+    margin-top: 28px;
     text-align: center;
     text-transform: uppercase;
   }
 
   .certificate-print.new .certificate-date {
-    margin-top: 55px;
+    margin-top: 60px;
     margin-left: 130px;
   }
 
