@@ -86,7 +86,7 @@
                   </v-list-item>
                   <v-list-item
                     v-if="item.IsActive"
-                    @click.stop.prevent="printCerti(item.id)"
+                    @click.stop.prevent="printCerti(item)"
                   >
                     <v-list-item-icon
                       ><v-icon color="info"
@@ -587,7 +587,7 @@ export default class Students extends Vue {
 
   centerList: any = [];
   courseList: any = [];
-  printDialog: any = false;
+  printDialog: any = true;
   qualificationList: any = [
     "Below 10th Standard",
     "10th Pass",
@@ -830,14 +830,15 @@ export default class Students extends Vue {
     return str;
   }
 
-  printCerti(id: any) {
-    this.$fire.firestore
-      .collection("Students")
-      .doc(id)
-      .get()
-      .then((doc) => {
-        this.certificateStudent = doc.data();
-      });
+  printCerti(item: any) {
+    // this.$fire.firestore
+    //   .collection("Students")
+    //   .doc(id)
+    //   .get()
+    //   .then((doc) => {
+    //     this.certificateStudent = doc.data();
+    //   });
+    this.certificateStudent = this.certificateStudent;
     this.printDialog = true;
   }
 
