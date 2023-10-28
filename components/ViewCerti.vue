@@ -18,12 +18,12 @@
       </v-col>
     </v-row>
     <v-row justify="center">
-      <v-col cols="12" md="10">
+      <v-col cols="12" md="10" align-content="center">
         <v-sheet color="white" rounded elevation="2">
           <template v-if="studentData.length">
             <div
               class="certificate-area"
-              :class="studentData.isOldCertificate ? 'old' : 'new'"
+              :class="studentData[0]?.isOldCertificate === true ? 'old' : 'new'"
             >
               <p id="ref">{{ studentData[0].Addmissiondate?.slice(-4) }}</p>
               <p id="studId">{{ studentData[0]?.StudentId }}</p>
@@ -89,6 +89,7 @@ export default class ViewCerti extends Vue {
               this.studentData.push({ ...doc.data() });
             });
           });
+        console.log(this.studentData[0].isOldCertificate);
       } catch (error: any) {
         this.error = error.code;
       }
@@ -101,18 +102,17 @@ export default class ViewCerti extends Vue {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .certificate-area {
   position: relative;
-  display: block;
-  margin: 0 auto;
-  width: 100%;
-  height: 640px;
-  object-fit: cover;
-  overflow: hidden;
-
   &.old {
     background: url(../static/certificateJssa.jpg) no-repeat left top;
+    width: 100%;
+    display: block;
+    height: 640px;
+    margin: 0 auto;
+    object-fit: cover;
+    overflow: hidden;
     p {
       position: absolute;
       font-size: 16px;
@@ -164,52 +164,58 @@ export default class ViewCerti extends Vue {
   }
   &.new {
     background: url(../static/newCerti.jpg) no-repeat left top;
+    width: 100%;
+    display: block;
+    height: 640px;
+    margin: 0 auto;
+    object-fit: cover;
+    overflow: hidden;
     p {
       position: absolute;
-      font-size: 16px;
+      font-size: 13px;
       font-weight: 700;
       &#ref {
-        top: 72mm;
-        left: 60mm;
+        top: 67mm;
+        left: 47mm;
       }
       &#studId {
-        top: 78mm;
-        left: 63mm;
+        top: 74mm;
+        left: 49mm;
       }
       &#name {
-        top: 91mm;
+        top: 93mm;
         left: 80mm;
         text-transform: capitalize;
       }
       &#course {
-        top: 109mm;
+        top: 110mm;
         left: 50%;
         transform: translateX(-50%);
       }
       &#grade {
-        top: 118mm;
-        left: 70mm;
+        top: 119mm;
+        left: 52mm;
       }
       &#sdate {
-        top: 118mm;
-        left: 145mm;
+        top: 119mm;
+        left: 120mm;
       }
       &#edate {
-        top: 118mm;
-        left: 195mm;
+        top: 119mm;
+        left: 175mm;
       }
       &#center {
-        top: 127mm;
+        top: 128mm;
         left: 50%;
         transform: translateX(-30%);
       }
       &#cdate {
-        top: 151.5mm;
-        left: 55mm;
+        top: 143mm;
+        left: 41mm;
       }
       &#location {
-        top: 158.5mm;
-        left: 55mm;
+        top: 149.5mm;
+        left: 41mm;
       }
     }
   }

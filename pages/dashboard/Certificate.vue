@@ -234,6 +234,7 @@ export default class GenerateCertificate extends Vue {
       this.$fire.firestore
         .collection("Students")
         .where("IsActive", "==", false)
+        .orderBy("Timestamp", "asc")
         .onSnapshot(async (querySnapshot) => {
           this.studentList = [];
           await querySnapshot.forEach((doc) => {

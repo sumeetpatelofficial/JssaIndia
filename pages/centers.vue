@@ -11,14 +11,14 @@
           </h6>
           <div class="py-10">
             <v-data-table
-                :headers="headers"
-                :items="centerList"
-                :items-per-page="5"
-                class="elevation-1"
-                :loading="loading"
-                loading-text="Loading... Please wait"
+              :headers="headers"
+              :items="centerList"
+              :items-per-page="5"
+              class="elevation-1"
+              :loading="loading"
+              loading-text="Loading... Please wait"
             ></v-data-table>
-            </div>
+          </div>
         </v-col>
       </v-row>
     </v-container>
@@ -36,15 +36,15 @@ import HomeCTA from "~/components/HomeCTA.vue";
   },
 })
 export default class Centers extends Vue {
-  error:any='';
-  loading:any=false;
-    headers:any=[
-        {text:'Center Name', value:'centerName'},
-        {text:'Address', value:'address'},
-        {text:'Area', value:'area'},
-        {text:'Email', value:'email'},
-        {text:'Contact', value:'phone'},
-    ];
+  error: any = "";
+  loading: any = false;
+  headers: any = [
+    { text: "Center Name", value: "centerName" },
+    { text: "Address", value: "address" },
+    { text: "Area", value: "area" },
+    { text: "Email", value: "email" },
+    // {text:'Contact', value:'phone'},
+  ];
   centerList: any = [];
 
   mounted() {
@@ -58,7 +58,7 @@ export default class Centers extends Vue {
             this.centerList.push({ id: doc.id, ...doc.data() });
             this.loading = false;
           });
-        });        
+        });
     } catch (error: any) {
       this.error = error.code;
     }
@@ -67,12 +67,12 @@ export default class Centers extends Vue {
 </script>
 
 <style scoped>
-.page-heading{
-    position: relative;
-    padding: 80px 0;
-    background: url(../static/cta.jpg) no-repeat center center;
-    background-size: cover;
-    margin-bottom: 30px;
-    text-align: center;
+.page-heading {
+  position: relative;
+  padding: 80px 0;
+  background: url(../static/cta.jpg) no-repeat center center;
+  background-size: cover;
+  margin-bottom: 30px;
+  text-align: center;
 }
 </style>

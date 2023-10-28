@@ -687,6 +687,7 @@ export default class Students extends Vue {
     try {
       this.$fire.firestore
         .collection("Students")
+        .orderBy("Timestamp", "asc")
         .onSnapshot(async (querySnapshot) => {
           this.studentList = [];
           await querySnapshot.forEach((doc) => {
