@@ -20,20 +20,25 @@
     <v-row justify="center">
       <v-col cols="12" md="10">
         <v-sheet color="white" rounded elevation="2">
-          <div class="certificate-area" v-if="studentData.length">
-            <p id="ref">{{ studentData[0].Addmissiondate?.slice(-4) }}</p>
-            <p id="studId">{{ studentData[0]?.StudentId }}</p>
-            <p id="name">
-              {{ `${studentData[0]?.Firstname} ${studentData[0]?.Lastname}` }}
-            </p>
-            <p id="course">{{ studentData[0]?.Coursename }}</p>
-            <p id="grade">{{ studentData[0]?.Grade }}</p>
-            <p id="sdate">{{ studentData[0]?.Addmissiondate }}</p>
-            <p id="edate">{{ studentData[0]?.Enddate }}</p>
-            <p id="center">{{ studentData[0]?.Centername }}</p>
-            <p id="cdate">{{ studentData[0]?.Certificatedate }}</p>
-            <p id="location">{{ studentData[0]?.State }}</p>
-          </div>
+          <template v-if="studentData.length">
+            <div
+              class="certificate-area"
+              :class="studentData.isOldCertificate ? 'old' : 'new'"
+            >
+              <p id="ref">{{ studentData[0].Addmissiondate?.slice(-4) }}</p>
+              <p id="studId">{{ studentData[0]?.StudentId }}</p>
+              <p id="name">
+                {{ `${studentData[0]?.Firstname} ${studentData[0]?.Lastname}` }}
+              </p>
+              <p id="course">{{ studentData[0]?.Coursename }}</p>
+              <p id="grade">{{ studentData[0]?.Grade }}</p>
+              <p id="sdate">{{ studentData[0]?.Addmissiondate }}</p>
+              <p id="edate">{{ studentData[0]?.Enddate }}</p>
+              <p id="center">{{ studentData[0]?.Centername }}</p>
+              <p id="cdate">{{ studentData[0]?.Certificatedate }}</p>
+              <p id="location">{{ studentData[0]?.State }}</p>
+            </div>
+          </template>
           <div class="px-10 py-10 text-center" v-else>
             <v-row class="fill-height" align-content="center" justify="center">
               <v-col class="text-center" cols="12">
@@ -101,57 +106,111 @@ export default class ViewCerti extends Vue {
   position: relative;
   display: block;
   margin: 0 auto;
-  background: url(../static/certificateJssa.jpg) no-repeat left top;
   width: 100%;
   height: 640px;
   object-fit: cover;
   overflow: hidden;
-  p {
-    position: absolute;
-    font-size: 16px;
-    font-weight: 700;
-    &#ref {
-      top: 72mm;
-      left: 60mm;
+
+  &.old {
+    background: url(../static/certificateJssa.jpg) no-repeat left top;
+    p {
+      position: absolute;
+      font-size: 16px;
+      font-weight: 700;
+      &#ref {
+        top: 72mm;
+        left: 60mm;
+      }
+      &#studId {
+        top: 78mm;
+        left: 63mm;
+      }
+      &#name {
+        top: 91mm;
+        left: 80mm;
+        text-transform: capitalize;
+      }
+      &#course {
+        top: 109mm;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      &#grade {
+        top: 118mm;
+        left: 70mm;
+      }
+      &#sdate {
+        top: 118mm;
+        left: 145mm;
+      }
+      &#edate {
+        top: 118mm;
+        left: 195mm;
+      }
+      &#center {
+        top: 127mm;
+        left: 50%;
+        transform: translateX(-30%);
+      }
+      &#cdate {
+        top: 151.5mm;
+        left: 55mm;
+      }
+      &#location {
+        top: 158.5mm;
+        left: 55mm;
+      }
     }
-    &#studId {
-      top: 78mm;
-      left: 63mm;
-    }
-    &#name {
-      top: 91mm;
-      left: 80mm;
-      text-transform: capitalize;
-    }
-    &#course {
-      top: 109mm;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-    &#grade {
-      top: 118mm;
-      left: 70mm;
-    }
-    &#sdate {
-      top: 118mm;
-      left: 145mm;
-    }
-    &#edate {
-      top: 118mm;
-      left: 195mm;
-    }
-    &#center {
-      top: 127mm;
-      left: 50%;
-      transform: translateX(-30%);
-    }
-    &#cdate {
-      top: 151.5mm;
-      left: 55mm;
-    }
-    &#location {
-      top: 158.5mm;
-      left: 55mm;
+  }
+  &.new {
+    background: url(../static/newCerti.jpg) no-repeat left top;
+    p {
+      position: absolute;
+      font-size: 16px;
+      font-weight: 700;
+      &#ref {
+        top: 72mm;
+        left: 60mm;
+      }
+      &#studId {
+        top: 78mm;
+        left: 63mm;
+      }
+      &#name {
+        top: 91mm;
+        left: 80mm;
+        text-transform: capitalize;
+      }
+      &#course {
+        top: 109mm;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      &#grade {
+        top: 118mm;
+        left: 70mm;
+      }
+      &#sdate {
+        top: 118mm;
+        left: 145mm;
+      }
+      &#edate {
+        top: 118mm;
+        left: 195mm;
+      }
+      &#center {
+        top: 127mm;
+        left: 50%;
+        transform: translateX(-30%);
+      }
+      &#cdate {
+        top: 151.5mm;
+        left: 55mm;
+      }
+      &#location {
+        top: 158.5mm;
+        left: 55mm;
+      }
     }
   }
 }
