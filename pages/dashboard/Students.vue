@@ -437,7 +437,12 @@
               v-print="'#printableCertificate'"
               class="text-capitalize"
               color="primary"
-              >Print</v-btn
+            >
+              {{
+                certificateStudent.isOldCertificate
+                  ? "Print on old"
+                  : "Print on new"
+              }}</v-btn
             >
             <v-btn outlined class="text-capitalize" @click="closePrintDialog"
               >Cancel</v-btn
